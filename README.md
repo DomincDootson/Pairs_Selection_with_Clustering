@@ -13,5 +13,6 @@ use the following algorithms:
 4. From each of the clusters recommended by each algorithm, we generate candidate pairs . We remove any candidates that are not 
 suggested by all three algorithms. This leaves approximately 9,500 candidate pairs (7.5% of the starting number remain).
 5. On these remaining candidate pairs, we carry out a Engle–Granger test for cointegration and select only those that pass at the 
-FILL_SIG threshold.
+1% threshold.
+6. We finally examine the distribution of pairs by sector
 
