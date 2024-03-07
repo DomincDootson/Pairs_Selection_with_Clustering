@@ -1,18 +1,31 @@
 # Pairs Selection with Unsupervised Clustering
-The aim of this folder is to select candidate pairs from the S&P500 that can be used for pairs trading. The main bulk of the work is 
-done in the `Pairs_Selection_with_Unsupervised_Learning` notebook. In this notebook we do the following:
-1. Download stock data and the sector information from Yahoo finance
-2. We create averages of each stock in a given sector. We then create a new feature for each of the stocks which is its correlation 
-with each of the baskets.
-3. We perform unsupervised learning using the correlations we have just calculated and the volatility and returns of the stock. We  
-use the following algorithms:
-- K means: Gives good results, recommends 2-4 clusters
-- Hierarchical: Gives good results, recommends 8 clusters
-- DBSCAN: This doesn't perform well, so we ignore its results 
-- GMM: Gives good results, recommends 3 clusters
-4. From each of the clusters recommended by each algorithm, we generate candidate pairs . We remove any candidates that are not 
-suggested by all three algorithms. This leaves approximately 9,500 candidate pairs (7.5% of the starting number remain).
-5. On these remaining candidate pairs, we carry out a Engle–Granger test for cointegration and select only those that pass at the 
-1% threshold.
-6. We finally examine the distribution of pairs by sector
+The aim of this folder is to select candidate pairs from the S&P500 that can be used for pairs trading. The main bulk of the work is done in the `Pairs_Selection_with_Unsupervised_Learning` notebook. 
 
+## Pairs Selection Notebook
+In this notebook we carry out the following steps:
+1. **Getting the Data**: We wrote code to take stock time series data from the S&P500 and relevent sector information. We created aggregate time series for each sector into baskets.
+2. **Pairs Selection**:
+   - By calculating the correlation of each stock with the baskets, we generated features for unsupervised learning
+   - Using 4 different clustering methods (K-means, Hierarchical, DBSCAN, GMM), we generated different clusters of pairs. Three methods worked well, however we ignore the results of DBSCAN due to poor convergence. 
+3. **Generate Pairs**: From each of the clusters across all the methods, we generated candidate pairs. We only kept those pairs that were common to all the algorithms. This gave 9,500 pairs
+4. **Cointegration Test**: We performed the Engle-Granger test to check if the spread of the pair was stationary. We kept those that were significant at the 1% level. This gave ~570 pairs
+5. **Examining the Pairs**:
+    - We look at which sectors were over/underrepresented. We found that we were only using 350 stocks (about 3/4 the number we were expecting), however that no on sector was over/under represented.
+    - When looking at the sector pairing, we found that no one sector pairing was particularly strong, however the difference was really driven by the absolute number in each sector. 
+
+
+## Pairs Trading Prototype Notebook
+In this notebook we take a few example pairs, fit the linear relationship between the two stocks and impliment a pairs trading alogrithm. We then fit the linear relationship between all the pairs, and save to file. An example of the spread between two stock is shown below. The green (red) dots show when we enter (leave) a position.
+
+![image](Example\ Pairs\ Trade.png)
+
+
+## Results 
+We back test our strategy with all pairs on SP500 data from July 2023- Jan 2024 (we fit on the six month period before this). On our test sample we achieve:
+- **Sharpe Ratio:** 2.04
+- **Annual Returns:** 6.21%
+- **Annual Volatility:** 1.33%
+
+To impliment our strategy we assume that we know the linear relationship in our time frame (rather than implimenting a rolling averaging approach). We test this assumiption by using the linear relationships calculated with the test set, and we achieve similar results.  
+
+For the specific implimentation of the strategy and the code that carries out the backtesting, please find it at https://github.com/DomincDootson/BackTesting. 
