@@ -17,7 +17,7 @@ In this notebook we carry out the following steps:
 ## Pairs Trading Prototype Notebook
 In this notebook we take a few example pairs, fit the linear relationship between the two stocks and impliment a pairs trading alogrithm. We then fit the linear relationship between all the pairs, and save to file. An example of the spread between two stock is shown below. The green (red) dots show when we enter (leave) a position.
 
-![image](Example\ Pairs\ Trade.png)
+![](Example\ Pairs\ Trade.png)
 
 
 ## Results 
