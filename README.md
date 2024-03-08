@@ -26,6 +26,9 @@ We back test our strategy with all pairs on SP500 data from July 2023- Jan 2024 
 - **Annual Returns:** 6.21%
 - **Annual Volatility:** 1.33%
 
-To impliment our strategy we assume that we know the linear relationship in our time frame (rather than implimenting a rolling averaging approach). We test this assumiption by using the linear relationships calculated with the test set, and we achieve similar results. We enter our position when the spread is over 2 sigma from the mean and we exit the position when we are one position from the mean.  
+To impliment our strategy we assume that we know the linear relationship in our time frame (rather than implimenting a rolling 
+averaging approach). We test this assumiption by using the linear relationships calculated with the test set, and we achieve similar 
+results. We enter our position when the spread is over 2 sigma from the mean and we exit the position when we are 1 sigma from the 
+mean.  
 
 For the specific implimentation of the strategy and the code that carries out the backtesting, please find it at https://github.com/DomincDootson/BackTesting. 
